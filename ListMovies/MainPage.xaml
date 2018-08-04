@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:ListMovies" x:Class="ListMovies.MainPage">
+    <StackLayout>
+        <!-- Place new controls here -->
+<!--        <Label Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />-->
+        <ListView x:Name="lv1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding title}" Detail="{Binding originalTitle}" ImageSource="{Binding posterPath}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate> 
+        </ListView>
+    </StackLayout>
+</ContentPage>
