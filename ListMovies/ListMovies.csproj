@@ -15,4 +15,7 @@
     <Folder Include="Models\" />
     <Folder Include="Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\ListMoviesDatabase.cs" />
+  </ItemGroup>
 </Project>

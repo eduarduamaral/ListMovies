@@ -13,16 +13,13 @@ namespace ListMovies
         {
             InitializeComponent();
             metodoTest();
-            List<Movie> listaFilmes = new List<Movie>();
-            var realmDB = Realm.GetInstance();
-            List<FavoriteMovies> x = realmDB.All<FavoriteMovies>().ToList();
-            listaFilmes = x[0].items.ToList();
-            lv1.ItemsSource = listaFilmes;
         }
 
         public async void metodoTest()
         {
-            var teste = await MoviesService.GetMovietAsync();
+            var favoriteMovies = await MoviesService.GetMovietAsync();
+
+            lv1.ItemsSource = favoriteMovies.items;
         }
     }
 }
