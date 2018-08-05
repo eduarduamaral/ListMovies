@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Realms;
+using System;
+using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
 using ListMovies.Models;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
-using Realms;
-using System.Linq;
 
 namespace ListMovies.Service
 {
@@ -13,27 +13,23 @@ namespace ListMovies.Service
     public class MoviesService
     {
 
-        public static async Task<FavoriteMovies> GetMovietAsync()
+        public static async Task<FavoriteMovies> GetMovietAsync(string listId)
         {
             var realmDB = Realm.GetInstance();
 
             var favoriteMovies = realmDB.All<FavoriteMovies>().ToList();
 
             if (favoriteMovies.Count != 0)
-            {
                 return favoriteMovies[favoriteMovies.Count - 1];
-            }
-            else
-            {
-                return await GetOnApiMoviesAsync();
-            }
+           else
+                return await GetOnApiMoviesAsync(listId);
+            
         }
 
-        private static async Task<FavoriteMovies> GetOnApiMoviesAsync()
+        private static async Task<FavoriteMovies> GetOnApiMoviesAsync(string listId)
         {
-            // Update port # in the following line.
             HttpClient client = new HttpClient();
-            string url = "https://api.themoviedb.org/3/list/1313?language=pt-BR&api_key=1f54bd990f1cdfb230adb312546d765d";
+            string url = Helpers.Utils.BASE_URL + listId + Helpers.Utils.COMPLeMENT_URL + Helpers.Utils.API_KEY;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await client.GetAsync(url);
@@ -43,8 +39,8 @@ namespace ListMovies.Service
                 FavoriteMovies favoriteMovies = JsonConvert.DeserializeObject<FavoriteMovies>(await response.Content.ReadAsStringAsync());
                 foreach (var item in favoriteMovies.items)
                 {
-                    item.posterPath = "https://image.tmdb.org/t/p/w500" + item.posterPath;
-                    item.backdropPath = "https://image.tmdb.org/t/p/w500" + item.backdropPath;
+                    item.posterPath = Helpers.Utils.IMAGE_URL + Helpers.Utils.POSTER_SIZE + item.posterPath;
+                    item.backdropPath = Helpers.Utils.IMAGE_URL + Helpers.Utils.BACKDROP_SIZE + item.backdropPath;
                 }
 
                 var realmDB = Realm.GetInstance();
@@ -57,7 +53,6 @@ namespace ListMovies.Service
             }
             else
             {
-
                 new Exception("Erro - Status Code: " + response.StatusCode + "Houve um problema ao obter a lista de filmes");
                 return null;
             }    

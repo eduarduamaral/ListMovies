@@ -12,13 +12,12 @@ namespace ListMovies
         public MainPage()
         {
             InitializeComponent();
-            metodoTest();
+            Load();
         }
 
-        public async void metodoTest()
+        public async void Load()
         {
-            var favoriteMovies = await MoviesService.GetMovietAsync();
-
+            var favoriteMovies = await MoviesService.GetMovietAsync("1313");
             lv1.ItemsSource = favoriteMovies.items;
         }
     }

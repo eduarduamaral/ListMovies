@@ -1,7 +1,7 @@
 ﻿using System;
+using Realms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using Realms;
 
 namespace ListMovies.Models
 {
