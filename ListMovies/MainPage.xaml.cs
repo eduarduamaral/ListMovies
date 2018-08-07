@@ -17,17 +17,12 @@ namespace ListMovies
 
         public async void Load(string listId)
         {
-            if (listId != null)
-            {
-                var favoriteMovies = await MoviesService.GetMovietAsync(listId);
+            var favoriteMovies = await MoviesService.GetMovietAsync(listId);
+            if(favoriteMovies != null && favoriteMovies.items.Count > 0){
                 lv1.ItemsSource = favoriteMovies.items;
+            }else{
+                //Mostrar stack layout com informações que a lista está vazia
             }
-            else
-            {
-                var favoriteMovies = await MoviesService.GetMovietAsync("1313");
-                lv1.ItemsSource = favoriteMovies.items;
-            }
-
         }
 
 
@@ -39,8 +34,6 @@ namespace ListMovies
 
         void OnClick(object sender, EventArgs e)
         {
-            //ToolbarItem tbi = (ToolbarItem)sender;
-            //this.DisplayAlert("Selected!", tbi.Text, "OK");
             UserDialogs.Instance.Prompt(new PromptConfig
             {
                 Title = "Enter the id of the list to get the movies...",
