@@ -16,14 +16,18 @@ namespace ListMovies.Service
         public static async Task<FavoriteMovies> GetMovietAsync(string listId)
         {
             var realmDB = Realm.GetInstance();
-            var favoriteMovies = realmDB.All<FavoriteMovies>().ToList();
             //var favoriteMovies = realmDB.All<FavoriteMovies>().Where(d => d.id == Int32.Parse(listId)).ToList();
-
-            if (favoriteMovies.Count != 0)
-                return favoriteMovies[favoriteMovies.Count - 1];
-           else
+            
+            if (listId != null){
                 return await GetOnApiMoviesAsync(listId);
-       
+            }else{
+                var favoriteMovies = realmDB.All<FavoriteMovies>().ToList();
+                if (favoriteMovies.Count != 0){
+                    return favoriteMovies[favoriteMovies.Count - 1];
+                }else{
+                    return null;
+                }
+            }
         }
 
         private static async Task<FavoriteMovies> GetOnApiMoviesAsync(string listId)
