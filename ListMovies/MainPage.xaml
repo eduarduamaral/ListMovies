@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:ListMovies" x:Class="ListMovies.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Edit" Activated="OnClick"  Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
     <StackLayout>
-        <ListView x:Name="lv1">
+        <ListView x:Name="lv1" HasUnevenRows="true" ItemSelected="Handle_ItemSelectedAsync">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ImageCell Text="{Binding title}" Detail="{Binding originalTitle}" ImageSource="{Binding posterPath}"/>

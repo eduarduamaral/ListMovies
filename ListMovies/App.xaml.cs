@@ -13,7 +13,10 @@ namespace ListMovies
         public App()
         {
             InitializeComponent();
-            MainPage = new MainPage();
+            var navigationPage = new NavigationPage(new MainPage());
+            MainPage = navigationPage;
+
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()

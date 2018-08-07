@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using ListMovies.Service;
+using Acr.UserDialogs;
 
 namespace ListMovies.Droid
 {
@@ -21,6 +22,8 @@ namespace ListMovies.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            UserDialogs.Init(this);
             LoadApplication(new App());
         }
     }
