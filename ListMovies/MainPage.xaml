@@ -4,12 +4,21 @@
         <ToolbarItem Name="Edit" Activated="OnClick"  Order="Primary" Priority="0" />
     </ContentPage.ToolbarItems>
     <StackLayout>
+        <SearchBar x:Name="MovieSearchBar" TextChanged="OnTextChanged" />
         <ListView x:Name="lv1" HasUnevenRows="true" ItemSelected="Handle_ItemSelectedAsync">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell Text="{Binding title}" Detail="{Binding originalTitle}" ImageSource="{Binding posterPath}"/>
+                    <ImageCell Text="{Binding title}" Detail="{Binding releaseDate}" ImageSource="{Binding posterPath}"/>
                 </DataTemplate>
             </ListView.ItemTemplate> 
         </ListView>
+        <Label  
+            x:Name="informationLabel"  
+            Margin="5,50,5,5"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            VerticalOptions="Center"  
+            HorizontalOptions="Center"  
+            Text="The list is empty, click on edit to insert list id or check internet connection." /> 
     </StackLayout>
 </ContentPage>

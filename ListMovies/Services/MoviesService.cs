@@ -16,8 +16,6 @@ namespace ListMovies.Service
         public static async Task<FavoriteMovies> GetMovietAsync(string listId)
         {
             var realmDB = Realm.GetInstance();
-            //var favoriteMovies = realmDB.All<FavoriteMovies>().Where(d => d.id == Int32.Parse(listId)).ToList();
-            
             if (listId != null){
                 return await GetOnApiMoviesAsync(listId);
             }else{
@@ -33,7 +31,7 @@ namespace ListMovies.Service
         private static async Task<FavoriteMovies> GetOnApiMoviesAsync(string listId)
         {
             HttpClient client = new HttpClient();
-            string url = Helpers.Utils.BASE_URL + listId + Helpers.Utils.COMPLeMENT_URL + Helpers.Utils.API_KEY;
+            string url = Helpers.Utils.BASE_URL_LIST + listId + Helpers.Utils.COMPLEMENT_URL + Helpers.Utils.API_KEY;
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await client.GetAsync(url);
@@ -49,7 +47,7 @@ namespace ListMovies.Service
 
                 var realmDB = Realm.GetInstance();
 
-                realmDB.Write(() => {
+                realmDB.Write(() => { 
                     realmDB.Add(favoriteMovies, true);
                 });
 
@@ -60,6 +58,33 @@ namespace ListMovies.Service
                 new Exception("Erro - Status Code: " + response.StatusCode + "Houve um problema ao obter a lista de filmes");
                 return null;
             }    
-        } 
+        }
+
+        //private static async Task<Genre> GetOnApiGenresAsync(){
+        //    HttpClient client = new HttpClient();
+        //    string url = Helpers.Utils.BASE_URL_GENRE + Helpers.Utils.API_KEY;
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    HttpResponseMessage response = await client.GetAsync(url);
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        Genre genres = JsonConvert.DeserializeObject<Genre>(await response.Content.ReadAsStringAsync());
+
+        //        var realmDB = Realm.GetInstance();
+
+        //        realmDB.Write(() => {
+        //            realmDB.Add(genres, true);
+        //        });
+
+        //        return genres;
+        //    }
+        //    else
+        //    {
+        //        new Exception("Erro - Status Code: " + response.StatusCode + "Houve um problema ao obter os generos");
+        //        return null;
+        //    }  
+        //}
+
     }
 }
