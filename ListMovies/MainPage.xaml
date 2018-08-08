@@ -8,7 +8,7 @@
         <ListView x:Name="lv1" HasUnevenRows="true" ItemSelected="Handle_ItemSelectedAsync">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell Text="{Binding title}" Detail="{Binding releaseDate}" ImageSource="{Binding posterPath}"/>
+                    <ImageCell Text="{Binding title}" Detail="{Binding ReleaseDateAndGenres}" ImageSource="{Binding posterPath}"/>
                 </DataTemplate>
             </ListView.ItemTemplate> 
         </ListView>
