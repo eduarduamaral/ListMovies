@@ -25,7 +25,7 @@ namespace ListMovies
             voteAverage.Text = movie.voteAverage.ToString();
             releaseDate.Text = movie.releaseDate.ToString();
             originalLanguage.Text = movie.originalLanguage.ToString();
-            originalTitle.Text = "Titulo Original: " + movie.originalTitle;
+            originalTitle.Text = "Original Title: " + movie.originalTitle;
             //FIXME Se Houver tempo obter as strings dos generos do servidor
             string aux = "";
 

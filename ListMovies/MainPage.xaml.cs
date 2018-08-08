@@ -15,7 +15,7 @@ namespace ListMovies
         {
             InitializeComponent();
             Load(null);
-            Title = "Filmes Favoritos";
+            Title = "Favorite Movies";
         }
 
         public async Task Load(string listId)
