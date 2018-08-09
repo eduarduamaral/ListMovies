@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Realms;
 
@@ -51,9 +52,8 @@ namespace ListMovies.Models
 
         [JsonProperty(PropertyName = "release_date")]
         public string releaseDate { get; set; }
-        ]
         public string ReleaseDateAndGenres { get { 
-            return "Release date: " + releaseDate + " Genres: " + string.Join( ", ", genreIds.ToArray() );
+                return "Release date: " + releaseDate + " Genres: " + string.Join( ", ", genreIds.ToArray()) + ".";
         }}
 
         public Movie()

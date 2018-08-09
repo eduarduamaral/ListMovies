@@ -5,6 +5,7 @@ using ListMovies.Models;
 using Acr.UserDialogs;
 using System.Threading.Tasks;
 using System.Linq;
+using Plugin.Connectivity;
 
 namespace ListMovies
 {
@@ -20,12 +21,24 @@ namespace ListMovies
 
         public async Task Load(string listId)
         {
-            favoriteMovies = await MoviesService.GetMovietAsync(listId);
-            if(favoriteMovies != null && favoriteMovies.items.Count > 0){
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                UserDialogs.Instance.Alert("You not have internet connection... Please check!!");
+                favoriteMovies = await MoviesService.GetMovietAsyncFromLocal(listId);
+            }
+            else
+            {
+                favoriteMovies = await MoviesService.GetMovietAsyncFomServer(listId);
+            }
+
+            if (favoriteMovies != null && favoriteMovies.items.Count > 0)
+            {
                 lv1.ItemsSource = favoriteMovies.items;
                 informationLabel.IsVisible = false;
                 lv1.IsVisible = true;
-            }else{
+            }
+            else
+            {
                 informationLabel.IsVisible = true;
                 lv1.IsVisible = false;
             }
@@ -39,15 +52,18 @@ namespace ListMovies
         }
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(e.NewTextValue))
+        {   
+            if (favoriteMovies.items.Count > 0)
             {
-                lv1.ItemsSource = favoriteMovies.items;
-            }
-            else
-            {
-                var texto = MovieSearchBar.Text;
-                lv1.ItemsSource = favoriteMovies.items.Where(x => x.title.ToLower().Contains(texto.ToLower()));
+                if (string.IsNullOrEmpty(e.NewTextValue))
+                {
+                    lv1.ItemsSource = favoriteMovies.items;
+                }
+                else
+                {
+                    var texto = MovieSearchBar.Text;
+                    lv1.ItemsSource = favoriteMovies.items.Where(x => x.title.ToLower().Contains(texto.ToLower()));
+                }
             }
         }
 
@@ -59,9 +75,10 @@ namespace ListMovies
                 InputType = InputType.Number,
                 OnAction = async result =>
                 {
-                    //UserDialogs.Instance.Loading("Getting data...");
-                    await Load(result.Value);
-                    //UserDialogs.Instance.HideLoading();
+                    using (UserDialogs.Instance.Loading("Getting data...", null, null, true, MaskType.Clear))
+                    {
+                        await Load(result.Value);
+                    }
                 }
             });
         }

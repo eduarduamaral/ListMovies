@@ -26,7 +26,6 @@ namespace ListMovies
             releaseDate.Text = movie.releaseDate.ToString();
             originalLanguage.Text = movie.originalLanguage.ToString();
             originalTitle.Text = "Original Title: " + movie.originalTitle;
-            //FIXME Se Houver tempo obter as strings dos generos do servidor
             string aux = "";
 
             for (int i = 0; i < movie.genreIds.Count; i++)

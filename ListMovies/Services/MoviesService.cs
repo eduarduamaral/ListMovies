@@ -13,18 +13,32 @@ namespace ListMovies.Service
     public class MoviesService
     {
 
-        public static async Task<FavoriteMovies> GetMovietAsync(string listId)
+        public static async Task<FavoriteMovies> GetMovietAsyncFomServer(string listId)
         {
             var realmDB = Realm.GetInstance();
             if (listId != null){
                 return await GetOnApiMoviesAsync(listId);
             }else{
+                return null;
+            }
+        }
+
+        public static async Task<FavoriteMovies> GetMovietAsyncFromLocal (string listId)
+        {
+            var realmDB = Realm.GetInstance();
+            if (listId == null)
+            {
                 var favoriteMovies = realmDB.All<FavoriteMovies>().ToList();
-                if (favoriteMovies.Count != 0){
+                if (favoriteMovies.Count != 0)
+                {
                     return favoriteMovies[favoriteMovies.Count - 1];
-                }else{
+                }
+                else
+                {
                     return null;
                 }
+            }else{
+                return null;
             }
         }
 
