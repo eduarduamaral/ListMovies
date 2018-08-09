@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-//using ListMovies.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,8 +13,10 @@ namespace ListMovies
         public App()
         {
             InitializeComponent();
+            var navigationPage = new NavigationPage(new MainPage());
+            MainPage = navigationPage;
 
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()
@@ -32,17 +33,5 @@ namespace ListMovies
         {
             // Handle when your app resumes
         }
-
-        //public static ListMoviesDatabase Database
-        //{
-        //    get
-        //    {
-        //        if (database == null)
-        //        {
-        //            database = new ListMoviesDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TodoSQLite.db3"));
-        //        }
-        //        return database;
-        //    }
-        //}
     }
 }

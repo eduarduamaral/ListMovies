@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:ListMovies" x:Class="ListMovies.MainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Edit" Activated="OnClick"  Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
     <StackLayout>
-        <!-- Place new controls here -->
-<!--        <Label Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />-->
-        <ListView x:Name="lv1">
+        <SearchBar x:Name="MovieSearchBar" TextChanged="OnTextChanged" />
+        <ListView x:Name="lv1" HasUnevenRows="true" ItemSelected="Handle_ItemSelectedAsync">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell Text="{Binding title}" Detail="{Binding originalTitle}" ImageSource="{Binding posterPath}"/>
+                    <ImageCell Text="{Binding title}" Detail="{Binding ReleaseDateAndGenres}" ImageSource="{Binding posterPath}"/>
                 </DataTemplate>
             </ListView.ItemTemplate> 
         </ListView>
+        <Label  
+            x:Name="informationLabel"  
+            Margin="5,50,5,5"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            VerticalOptions="Center"  
+            HorizontalOptions="Center"  
+            Text="The list is empty, click on edit to insert list id or check internet connection." /> 
     </StackLayout>
 </ContentPage>
